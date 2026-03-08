@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Edem Ultimate Portal</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+height:100vh;
+background: linear-gradient(-45deg,#74ebd5,#ACB6E5,#89f7fe,#66a6ff);
+background-size:400% 400%;
+animation:gradient 12s ease infinite;
+}
+
+@keyframes gradient{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.center{
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.box{
+background:white;
+padding:35px;
+width:320px;
+border-radius:12px;
+box-shadow:0 6px 25px rgba(0,0,0,0.3);
+text-align:center;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#1a73e8;
+color:white;
+border:none;
+border-radius:6px;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#0f5cc0;
+}
+
+.link{
+color:#1a73e8;
+cursor:pointer;
+font-size:14px;
+}
+
+.dashboard{
+display:none;
+}
+
+.navbar{
+background:#1a73e8;
+color:white;
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.container{
+padding:40px;
+text-align:center;
+}
+
+.profile{
+width:90px;
+height:90px;
+border-radius:50%;
+margin-bottom:10px;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:10px;
+width:300px;
+margin:auto;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+</style>
+
+<script>
+
+function showRegister(){
+document.getElementById("loginPage").style.display="none"
+document.getElementById("registerPage").style.display="flex"
+}
+
+function showLogin(){
+document.getElementById("registerPage").style.display="none"
+document.getElementById("loginPage").style.display="flex"
+}
+
+function register(){
+
+let user=document.getElementById("regUser").value
+let pass=document.getElementById("regPass").value
+
+if(user=="" || pass==""){
+alert("Fill all fields")
+return
+}
+
+localStorage.setItem("username",user)
+localStorage.setItem("password",pass)
+
+alert("Account created! Now login.")
+
+showLogin()
+
+}
+
+function login(){
+
+let user=document.getElementById("logUser").value
+let pass=document.getElementById("logPass").value
+
+let savedUser=localStorage.getItem("username")
+let savedPass=localStorage.getItem("password")
+
+if(user===savedUser && pass===savedPass){
+
+document.getElementById("loginPage").style.display="none"
+document.getElementById("dashboard").style.display="block"
+
+document.getElementById("welcomeUser").innerText=user
+
+}
+
+else{
+alert("Wrong login details")
+}
+
+}
+
+function logout(){
+
+document.getElementById("dashboard").style.display="none"
+document.getElementById("loginPage").style.display="flex"
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<!-- LOGIN PAGE -->
+
+<div id="loginPage" class="center">
+
+<div class="box">
+
+<h2>Login</h2>
+
+<input id="logUser" placeholder="Username">
+
+<input id="logPass" type="password" placeholder="Password">
+
+<button onclick="login()">Login</button>
+
+<p class="link" onclick="showRegister()">Create Account</p>
+
+</div>
+
+</div>
+
+<!-- REGISTER PAGE -->
+
+<div id="registerPage" class="center" style="display:none">
+
+<div class="box">
+
+<h2>Register</h2>
+
+<input id="regUser" placeholder="Create Username">
+
+<input id="regPass" type="password" placeholder="Create Password">
+
+<button onclick="register()">Register</button>
+
+<p class="link" onclick="showLogin()">Back to Login</p>
+
+</div>
+
+</div>
+
+<!-- DASHBOARD -->
+
+<div id="dashboard" class="dashboard">
+
+<div class="navbar">
+
+<span>Edem Ultimate Portal</span>
+
+<button onclick="logout()" style="width:auto;padding:8px 15px;background:red;">
+Logout
+</button>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<img src="https://i.imgur.com/6VBx3io.png" class="profile">
+
+<h2>Welcome <span id="welcomeUser"></span> 👋</h2>
+
+<p>This is your personal dashboard.</p>
+
+<p>Your account is saved in the browser.</p>
+
+<p>You can build more pages here like:</p>
+
+<ul style="text-align:left">
+<li>Profile</li>
+<li>School portal</li>
+<li>Projects</li>
+<li>Messages</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
